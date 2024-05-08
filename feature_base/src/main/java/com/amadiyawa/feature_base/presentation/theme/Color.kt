@@ -3,8 +3,8 @@ package com.amadiyawa.feature_base.presentation.theme
 import androidx.compose.ui.graphics.Color
 
 // Light Colors
-val LightPrimary = Color(0xFF1565C0) // Beautiful blue
-val LightPrimaryVariant = Color(0xFF003c8f) // Slightly darker blue
+val LightPrimary = Color(0xFF008080) // Teal
+val LightPrimaryVariant = Color(0xFF006666) // Slightly darker teal
 val LightSecondary = Color(0xFF757575) // Grey
 val LightSecondaryVariant = Color(0xFFBDBDBD) // Light grey
 val LightBackground = Color(0xFFFFFFFF) // White
@@ -17,8 +17,8 @@ val LightOnSurface = Color(0xFF222222) // Dark grey
 val LightOnError = Color(0xFFFFFFFF) // White
 
 // Dark Colors
-val DarkPrimary = Color(0xFF003c8f) // Slightly darker blue
-val DarkPrimaryVariant = Color(0xFF1565C0) // Beautiful blue
+val DarkPrimary = Color(0xFF006666) // Slightly darker teal
+val DarkPrimaryVariant = Color(0xFF008080) // Teal
 val DarkSecondary = Color(0xFFBDBDBD) // Light grey
 val DarkSecondaryVariant = Color(0xFF757575) // Grey
 val DarkBackground = Color(0xFF000000) // Black

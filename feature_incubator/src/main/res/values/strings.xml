@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="incubator">Incubator</string>
+    <string name="incubator_detail_demo">Incubator demo</string>
+    <string name="baby_incubator">Baby incubator</string>
+    <string name="comming_soon">Coming soon</string>
+</resources>
