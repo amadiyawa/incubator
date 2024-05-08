@@ -26,7 +26,7 @@ fun IncubatorListScreen(
         floatingActionButton = {
             FloatingActionButton(
                 imageVector = Icons.Filled.Add,
-                onClick = { },
+                onClick = { onUserClick(13) },
                 label = stringResource(id = R.string.incubator_detail_demo)
             )
         },
