@@ -4,4 +4,9 @@
     <string name="incubator_detail_demo">Incubator demo</string>
     <string name="baby_incubator">Baby incubator</string>
     <string name="comming_soon">Coming soon</string>
+    <string name="live_incubator">Live incubator</string>
+    <string name="video_player">Video player</string>
+    <string name="baby_settings">Baby settings</string>
+    <string name="incubator_settings">Incubator settings</string>
+    <string name="weight">Weight</string>
 </resources>

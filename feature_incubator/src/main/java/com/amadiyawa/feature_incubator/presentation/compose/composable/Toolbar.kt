@@ -31,8 +31,7 @@ fun Toolbar(
         CenterAlignedTopAppBar(
             title = {
                 TextTitleLarge(
-                    text = title,
-                    modifier = Modifier.padding(start = 10.dp),
+                    text = title
                 )
             },
             colors = TopAppBarDefaults.topAppBarColors(
@@ -55,7 +54,6 @@ fun Toolbar(
             title = {
                 TextTitleLarge(
                     text = title,
-                    modifier = Modifier.padding(start = 10.dp),
                 )
             },
             actions = {

@@ -5,6 +5,7 @@ import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
@@ -14,7 +15,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import com.amadiyawa.feature_base.presentation.compose.composable.TextTitleSmall
+import com.amadiyawa.feature_base.common.res.Dimen
+import com.amadiyawa.feature_base.presentation.compose.composable.TextTitleMedium
 
 @Composable
 fun FloatingActionButton(
@@ -41,9 +43,16 @@ fun FloatingActionButton(
             contentColor = MaterialTheme.colorScheme.onPrimary,
             containerColor = MaterialTheme.colorScheme.primary
         ){
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(imageVector,"", tint = MaterialTheme.colorScheme.onPrimary)
-                TextTitleSmall(text = label)
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium)
+            ) {
+                Icon(
+                    imageVector = imageVector,
+                    contentDescription = label,
+                    tint = MaterialTheme.colorScheme.onPrimary
+                )
+                TextTitleMedium(text = label)
             }
         }
     }

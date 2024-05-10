@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.googleServices)
 }
 
 android {
@@ -56,6 +57,11 @@ android {
 
 dependencies {
     implementation(projects.featureIncubator)
+
+    // Import the Firebase BoM
+    implementation(platform(libs.firebaseBom))
+    // Declare the dependency for the Firebase SDK for Google Analytics
+    implementation(libs.firebaseAnalytics)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

@@ -6,7 +6,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.amadiyawa.feature_base.presentation.navigation.AppNavigationDestination
 import com.amadiyawa.feature_incubator.presentation.navigation.IncubatorListNavigation
-import com.amadiyawa.feature_incubator.presentation.navigation.incubatorDetailGraph
 import com.amadiyawa.feature_incubator.presentation.navigation.incubatorListGraph
 
 @Composable
@@ -29,9 +28,7 @@ fun AppNavHost(
                     IncubatorListNavigation.incubatorDetailRoute(incubatorId)
                 )
             },
-            nestedGraph = {
-                incubatorDetailGraph(onBackClick = onBackClick)
-            }
+            onBackClick = onBackClick
         )
     }
 }

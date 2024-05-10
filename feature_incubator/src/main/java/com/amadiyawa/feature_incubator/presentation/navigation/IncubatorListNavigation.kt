@@ -17,8 +17,8 @@ object IncubatorListNavigation: AppNavigationDestination {
 }
 
 fun NavGraphBuilder.incubatorListGraph(
-    onNavigateToIncubatorDetail: (uuid: Int) -> Unit,
-    nestedGraph: NavGraphBuilder.() -> Unit
+    onNavigateToIncubatorDetail: (incubatorId: Int) -> Unit,
+    onBackClick: () -> Unit
 ) {
     navigation(
         startDestination = IncubatorListNavigation.destination,
@@ -26,9 +26,9 @@ fun NavGraphBuilder.incubatorListGraph(
     ) {
         composable(route = IncubatorListNavigation.destination) {
             IncubatorListScreen(
-                onUserClick = onNavigateToIncubatorDetail
+                onIncubatorClick = onNavigateToIncubatorDetail
             )
         }
-        nestedGraph()
+        incubatorDetailGraph(onBackClick = onBackClick)
     }
 }

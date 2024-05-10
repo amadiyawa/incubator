@@ -12,6 +12,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import com.amadiyawa.feature_base.common.res.Dimen
 import com.amadiyawa.feature_base.presentation.compose.composable.TextTitleLarge
 import com.amadiyawa.feature_incubator.R
 import com.amadiyawa.feature_incubator.presentation.compose.composable.FloatingActionButton
@@ -19,14 +20,14 @@ import com.amadiyawa.feature_incubator.presentation.compose.composable.Toolbar
 
 @Composable
 fun IncubatorListScreen(
-    onUserClick: (Int) -> Unit,
+    onIncubatorClick: (Int) -> Unit,
 ) {
     Scaffold(
         contentColor = MaterialTheme.colorScheme.onBackground,
         floatingActionButton = {
             FloatingActionButton(
                 imageVector = Icons.Filled.Add,
-                onClick = { onUserClick(13) },
+                onClick = { onIncubatorClick(13) },
                 label = stringResource(id = R.string.incubator_detail_demo)
             )
         },
@@ -34,8 +35,7 @@ fun IncubatorListScreen(
         contentWindowInsets = WindowInsets(0, 0, 0, 0)
     ) { paddingValues ->
         SetupContent(
-            paddingValues = paddingValues,
-            onUserClick = onUserClick
+            paddingValues = paddingValues
         )
     }
 }
@@ -46,11 +46,22 @@ private fun SetUpToolbar() {
 }
 
 @Composable
-fun SetupContent(paddingValues: PaddingValues, onUserClick: (Int) -> Unit) {
+private fun SetupContent(paddingValues: PaddingValues) {
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(paddingValues)
     ){
+        HandleUiState()
+    }
+}
+
+@Composable
+private fun HandleUiState() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(Dimen.Padding.screenContent)
+    ) {
         TextTitleLarge(text = stringResource(R.string.comming_soon))
     }
 }

@@ -18,7 +18,7 @@ fun NavGraphBuilder.incubatorDetailGraph(
     onBackClick: () -> Unit
 ) {
     composable(route = IncubatorDetailNavigation.route) { backStackEntry ->
-        val incubatorId = backStackEntry.arguments?.getString("incubatorId")
+        val incubatorId = backStackEntry.arguments?.getString("incubatorID")
         if (incubatorId != null) {
             IncubatorDetailScreen(
                 onBackClick = onBackClick,

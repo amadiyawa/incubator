@@ -8,6 +8,7 @@ import androidx.compose.ui.unit.dp
 object Dimen {
     // Spacing dimensions
     object Spacing {
+        val extraSmall = 2.dp
         val small = 4.dp
         val medium = 8.dp
         val large = 16.dp
