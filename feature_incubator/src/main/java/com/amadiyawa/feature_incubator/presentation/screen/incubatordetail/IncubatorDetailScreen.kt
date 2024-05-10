@@ -2,6 +2,7 @@ package com.amadiyawa.feature_incubator.presentation.screen.incubatordetail
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,6 +17,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ExpandCircleDown
 import androidx.compose.material.icons.filled.ExpandLess
@@ -117,7 +122,7 @@ private fun HandleUiState() {
         baby = Baby(
             id = "1",
             name = "Erwin Smith",
-            dateOfBirth = 1633046400000L, // This is a timestamp for 01 October 2021
+            dateOfBirth = 1633046400000L,
             gender = "male",
             weight = 3.5,
             height = 50.0,
@@ -128,7 +133,7 @@ private fun HandleUiState() {
             medicalConditions = listOf("Condition A", "Condition B"),
             allergies = listOf("Allergy A", "Allergy B"),
             medications = listOf("Medication A", "Medication B"),
-            currentTemperature = 36.5,
+            currentTemperature = 33.6,
             normalTemperatureRange = Pair(36.0, 37.0),
             currentHeartRate = 120,
             normalHeartRateRange = Pair(110, 130),
@@ -140,15 +145,76 @@ private fun HandleUiState() {
         )
     )
 
+    TemperatureOverview(incubator = incubator)
+
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .padding(Dimen.Spacing.medium),
         verticalArrangement = Arrangement.spacedBy(Dimen.Spacing.small)
     ) {
-        IncubatorVideoStream()
-        IncubatorDetails(incubator = incubator)
+        Column {
+            IncubatorVideoStream()
+            DesktopIconBottom()
+        }
         BabyDetails(baby = incubator.baby)
+        IncubatorDetails(incubator = incubator)
+    }
+}
+
+@Composable
+private fun TemperatureOverview(incubator: Incubator) {
+    val incubatorTemperatureString = "${incubator.currentTemperature} \u00B0C"
+    val babyTemperatureString = "${incubator.baby.currentTemperature} \u00B0C"
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(color = MaterialTheme.colorScheme.surface)
+            .padding(Dimen.Spacing.large),
+        horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.large),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium, Alignment.CenterHorizontally),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                painter = painterResource(id =R.drawable.thermometer),
+                contentDescription = incubator.currentTemperature.toString(),
+                tint = Color(0xFF2196F3)
+            )
+
+            Column {
+                TextTitleSmall(text = stringResource(id = R.string.incubator))
+                TextTitleSmall(
+                    text = incubatorTemperatureString,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium, Alignment.CenterHorizontally),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                painter = painterResource(id =R.drawable.thermometer),
+                contentDescription = incubator.currentTemperature.toString(),
+                tint = Color(0xFFFF5722)
+            )
+
+            Column {
+                TextTitleSmall(text = stringResource(id = R.string.weight))
+                TextTitleSmall(
+                    text = babyTemperatureString,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
     }
 }
 
@@ -158,8 +224,7 @@ private fun IncubatorVideoStream() {
 
     Card(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 6.dp),
+            .fillMaxWidth(),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface,
             contentColor = MaterialTheme.colorScheme.onPrimary
@@ -173,7 +238,7 @@ private fun IncubatorVideoStream() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable { expanded = !expanded }
-                    .background(MaterialTheme.colorScheme.primary)
+                    .background(Color(0xFF2f3135))
             ) {
                 Row(
                     modifier = Modifier
@@ -209,8 +274,39 @@ fun LiveStream() {
             .height(200.dp)
             .fillMaxWidth()
             .background(Color.LightGray)
+            .border(
+                width = Dimen.Spacing.small,
+                color = Color(0xFF2f3135),
+                shape = RoundedCornerShape(
+                    bottomStart = Dimen.Spacing.medium,
+                    bottomEnd = Dimen.Spacing.medium
+                )
+            )
     ) {
         TextTitleSmall(text = stringResource(id = R.string.video_player), modifier = Modifier.align(Alignment.Center))
+    }
+}
+
+@Composable
+fun DesktopIconBottom() {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Box(
+            modifier = Modifier
+                .size(Dimen.Size.extraSmall)
+                .background(Color(0xFF2f3135))
+        )
+
+        Box(
+            modifier = Modifier
+                .width(Dimen.Size.extraLarge)
+                .height(Dimen.Spacing.medium)
+                .background(Color(0xFF2f3135))
+        )
     }
 }
 
@@ -250,52 +346,69 @@ private fun IncubatorDetails(
                     .fillMaxWidth()
                     .padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Row {
-                    Row {
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(Dimen.Spacing.large)
+                    ) {
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium, Alignment.CenterHorizontally),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column {
+                                TextTitleSmall(text = stringResource(id = R.string.model))
+                                TextTitleSmall(
+                                    text = incubator.model,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                        }
 
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium, Alignment.CenterHorizontally),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column {
+                                TextTitleSmall(text = stringResource(id = R.string.last_maintenance))
+                                TextTitleSmall(
+                                    text = formatDate(incubator.lastMaintenanceDate),
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                        }
                     }
 
-                    Spacer(Modifier.weight(1f))
+                    Spacer(modifier = Modifier.weight(1f))
 
-                    Row {
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(Dimen.Spacing.large)
+                    ) {
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium, Alignment.CenterHorizontally),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column {
+                                TextTitleSmall(text = stringResource(id = R.string.manufacturer))
+                                TextTitleSmall(
+                                    text = incubator.manufacturer,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                        }
 
-                    }
-                }
-
-                Row {
-                    Row {
-
-                    }
-
-                    Spacer(Modifier.weight(1f))
-
-                    Row {
-
-                    }
-                }
-
-                Row {
-                    Row {
-
-                    }
-
-                    Spacer(Modifier.weight(1f))
-
-                    Row {
-
-                    }
-                }
-
-                Row {
-                    Row {
-
-                    }
-
-                    Spacer(Modifier.weight(1f))
-
-                    Row {
-
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium, Alignment.CenterHorizontally),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column {
+                                TextTitleSmall(text = stringResource(id = R.string.next_maintenance))
+                                TextTitleSmall(
+                                    text = formatDate(incubator.nextMaintenanceDate),
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                        }
                     }
                 }
             }
@@ -341,7 +454,9 @@ private fun BabyDetails(
                 verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+
                 BabyOverview(baby = baby)
+
                 Row {
                     Column(
                         verticalArrangement = Arrangement.spacedBy(Dimen.Spacing.large)

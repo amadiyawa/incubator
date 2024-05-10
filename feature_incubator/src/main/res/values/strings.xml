@@ -12,4 +12,9 @@
     <string name="blood_pressure">Blood pressure</string>
     <string name="heart_rate">Heart rate</string>
     <string name="spo2">SPO2</string>
+    <string name="incubator_temperature">Incubator temperature</string>
+    <string name="model">Model</string>
+    <string name="manufacturer">Manufacturer</string>
+    <string name="next_maintenance">Next maintenance</string>
+    <string name="last_maintenance">Last maintenance</string>
 </resources>
