@@ -19,7 +19,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ExpandCircleDown
 import androidx.compose.material.icons.filled.ExpandLess
-import androidx.compose.material.icons.filled.MonitorWeight
+import androidx.compose.material.icons.outlined.MonitorHeart
+import androidx.compose.material.icons.outlined.MonitorWeight
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -33,6 +34,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -40,7 +42,6 @@ import com.amadiyawa.feature_base.common.res.Dimen
 import com.amadiyawa.feature_base.common.util.formatDate
 import com.amadiyawa.feature_base.presentation.compose.composable.DrawHorizontalDottedLine
 import com.amadiyawa.feature_base.presentation.compose.composable.PlaceholderImage
-import com.amadiyawa.feature_base.presentation.compose.composable.TextTitleLarge
 import com.amadiyawa.feature_base.presentation.compose.composable.TextTitleMedium
 import com.amadiyawa.feature_base.presentation.compose.composable.TextTitleSmall
 import com.amadiyawa.feature_incubator.R
@@ -48,8 +49,6 @@ import com.amadiyawa.feature_incubator.domain.model.Baby
 import com.amadiyawa.feature_incubator.domain.model.Incubator
 import com.amadiyawa.feature_incubator.presentation.compose.composable.Toolbar
 import timber.log.Timber
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 @Composable
 fun IncubatorDetailScreen(
@@ -134,7 +133,7 @@ private fun HandleUiState() {
             currentHeartRate = 120,
             normalHeartRateRange = Pair(110, 130),
             arterialRate = 80,
-            arterialFrequency = 60,
+            bloodPressure = 120,
             spo2 = 46.0,
             normalSpo2Range = Pair(40.0, 50.0),
             picture = "https://www.example.com/picture.jpg"
@@ -344,85 +343,92 @@ private fun BabyDetails(
             ) {
                 BabyOverview(baby = baby)
                 Row {
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium)
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(Dimen.Spacing.large)
                     ) {
-                        Icon(
-                            imageVector = Icons.Filled.MonitorWeight,
-                            contentDescription = baby.weight.toString(),
-                            tint = MaterialTheme.colorScheme.onPrimary,
-                            modifier = Modifier.height(IntrinsicSize.Max)
-                        )
-
-                        Column {
-                            TextTitleSmall(text = stringResource(id = R.string.weight))
-                            TextTitleSmall(
-                                text = baby.weight.toString() + " kg",
-                                fontWeight = FontWeight.Bold
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium, Alignment.CenterHorizontally),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                imageVector = Icons.Outlined.MonitorWeight,
+                                contentDescription = baby.weight.toString(),
+                                tint = MaterialTheme.colorScheme.onPrimary,
+                                modifier = Modifier.size(48.dp)
                             )
+
+                            Column {
+                                TextTitleSmall(text = stringResource(id = R.string.weight))
+                                TextTitleSmall(
+                                    text = baby.weight.toString() + " kg",
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                        }
+
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium, Alignment.CenterHorizontally),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.blood_pressure),
+                                contentDescription = baby.weight.toString(),
+                                tint = MaterialTheme.colorScheme.onPrimary,
+                                modifier = Modifier.height(IntrinsicSize.Max)
+                            )
+
+                            Column {
+                                TextTitleSmall(text = stringResource(id = R.string.blood_pressure))
+                                TextTitleSmall(
+                                    text = baby.bloodPressure.toString() + " mmHg",
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
                         }
                     }
 
-                    Spacer(Modifier.weight(1f))
+                    Spacer(modifier = Modifier.weight(1f))
 
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium)
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(Dimen.Spacing.large)
                     ) {
-                        Icon(
-                            imageVector = Icons.Filled.MonitorWeight,
-                            contentDescription = baby.weight.toString(),
-                            tint = MaterialTheme.colorScheme.onPrimary,
-                            modifier = Modifier.height(IntrinsicSize.Max)
-                        )
-
-                        Column {
-                            TextTitleSmall(text = stringResource(id = R.string.weight))
-                            TextTitleSmall(
-                                text = baby.weight.toString() + " kg",
-                                fontWeight = FontWeight.Bold
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium, Alignment.CenterHorizontally),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                painter = painterResource(id =R.drawable.spo2),
+                                contentDescription = baby.weight.toString(),
+                                tint = MaterialTheme.colorScheme.onPrimary
                             )
+
+                            Column {
+                                TextTitleSmall(text = stringResource(id = R.string.spo2))
+                                TextTitleSmall(
+                                    text = baby.spo2.toString() + " %",
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
                         }
-                    }
-                }
 
-                Row {
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Filled.MonitorWeight,
-                            contentDescription = baby.weight.toString(),
-                            tint = MaterialTheme.colorScheme.onPrimary,
-                            modifier = Modifier.height(IntrinsicSize.Max)
-                        )
-
-                        Column {
-                            TextTitleSmall(text = stringResource(id = R.string.weight))
-                            TextTitleSmall(
-                                text = baby.weight.toString() + " kg",
-                                fontWeight = FontWeight.Bold
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium, Alignment.CenterHorizontally),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                imageVector = Icons.Outlined.MonitorHeart,
+                                contentDescription = baby.weight.toString(),
+                                tint = MaterialTheme.colorScheme.onPrimary,
+                                modifier = Modifier.size(Dimen.Size.large)
                             )
-                        }
-                    }
 
-                    Spacer(Modifier.weight(1f))
-
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Filled.MonitorWeight,
-                            contentDescription = baby.weight.toString(),
-                            tint = MaterialTheme.colorScheme.onPrimary,
-                            modifier = Modifier.height(IntrinsicSize.Max)
-                        )
-
-                        Column {
-                            TextTitleSmall(text = stringResource(id = R.string.weight))
-                            TextTitleSmall(
-                                text = baby.weight.toString() + " kg",
-                                fontWeight = FontWeight.Bold
-                            )
+                            Column {
+                                TextTitleSmall(text = stringResource(id = R.string.heart_rate))
+                                TextTitleSmall(
+                                    text = baby.currentHeartRate.toString() + " Bpm",
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
                         }
                     }
                 }

@@ -19,7 +19,7 @@ data class Baby(
     val currentHeartRate: Int,
     val normalHeartRateRange: Pair<Int, Int>,
     val arterialRate: Int,
-    val arterialFrequency: Int,
+    val bloodPressure: Int,
     val spo2: Double,
     val normalSpo2Range: Pair<Double, Double>,
     val picture: String
