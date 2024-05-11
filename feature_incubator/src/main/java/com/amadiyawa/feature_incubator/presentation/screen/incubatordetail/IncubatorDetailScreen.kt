@@ -142,7 +142,7 @@ private fun HandleUiState() {
             spo2 = 46.0,
             normalSpo2Range = Pair(40.0, 50.0),
             picture = "https://www.example.com/picture.jpg",
-            currentHumidity = 45.0,
+            currentHumidity = 55.0,
             normalHumidityRange = Pair(40.0, 50.0),
         )
     )
@@ -479,7 +479,7 @@ private fun BabyDetails(
                             Icon(
                                 imageVector = Icons.Outlined.MonitorWeight,
                                 contentDescription = baby.weight.toString(),
-                                tint = MaterialTheme.colorScheme.onPrimary,
+                                tint = Color(0xFF98FB98),
                                 modifier = Modifier.size(48.dp)
                             )
 
@@ -502,7 +502,7 @@ private fun BabyDetails(
                             Icon(
                                 painter = painterResource(id = R.drawable.blood_pressure),
                                 contentDescription = baby.weight.toString(),
-                                tint = MaterialTheme.colorScheme.onPrimary,
+                                tint = Color(0xFFFF6961),
                                 modifier = Modifier.height(IntrinsicSize.Max)
                             )
 
@@ -510,6 +510,29 @@ private fun BabyDetails(
                                 TextTitleSmall(text = stringResource(id = R.string.blood_pressure))
                                 TextTitleSmall(
                                     text = baby.bloodPressure.toString() + " mmHg",
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                        }
+
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(
+                                Dimen.Spacing.medium,
+                                Alignment.CenterHorizontally
+                            ),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.humidity_high),
+                                contentDescription = baby.weight.toString(),
+                                tint = Color(0xFF87CEFA),
+                                modifier = Modifier.height(IntrinsicSize.Max)
+                            )
+
+                            Column {
+                                TextTitleSmall(text = stringResource(id = R.string.humidity))
+                                TextTitleSmall(
+                                    text = baby.currentHumidity.toString() + " %",
                                     fontWeight = FontWeight.Bold
                                 )
                             }
@@ -531,7 +554,7 @@ private fun BabyDetails(
                             Icon(
                                 painter = painterResource(id =R.drawable.spo2),
                                 contentDescription = baby.weight.toString(),
-                                tint = MaterialTheme.colorScheme.onPrimary
+                                tint = Color(0xFF00BFFF)
                             )
 
                             Column {
@@ -553,7 +576,7 @@ private fun BabyDetails(
                             Icon(
                                 imageVector = Icons.Outlined.MonitorHeart,
                                 contentDescription = baby.weight.toString(),
-                                tint = MaterialTheme.colorScheme.onPrimary,
+                                tint = Color(0xFFFF6961),
                                 modifier = Modifier.size(Dimen.Size.large)
                             )
 
@@ -561,6 +584,29 @@ private fun BabyDetails(
                                 TextTitleSmall(text = stringResource(id = R.string.heart_rate))
                                 TextTitleSmall(
                                     text = baby.currentHeartRate.toString() + " Bpm",
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                        }
+
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(
+                                Dimen.Spacing.medium,
+                                Alignment.CenterHorizontally
+                            ),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.humidity_mid),
+                                contentDescription = baby.weight.toString(),
+                                tint = Color(0xFF87CEFA),
+                                modifier = Modifier.height(IntrinsicSize.Max)
+                            )
+
+                            Column {
+                                TextTitleSmall(text = stringResource(id = R.string.normal_humidity))
+                                TextTitleSmall(
+                                    text = baby.normalHumidityRange.toString() + " %",
                                     fontWeight = FontWeight.Bold
                                 )
                             }
