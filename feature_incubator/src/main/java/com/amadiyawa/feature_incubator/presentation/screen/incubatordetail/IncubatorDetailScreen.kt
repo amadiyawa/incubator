@@ -365,9 +365,35 @@ private fun IncubatorDetails(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Column {
+                                TextTitleSmall(text = stringResource(id = R.string.humidity))
+                                TextTitleSmall(
+                                    text = incubator.currentHumidity.toString() + " %",
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                        }
+
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium, Alignment.CenterHorizontally),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column {
                                 TextTitleSmall(text = stringResource(id = R.string.model))
                                 TextTitleSmall(
                                     text = incubator.model,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                        }
+
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium, Alignment.CenterHorizontally),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column {
+                                TextTitleSmall(text = stringResource(id = R.string.location))
+                                TextTitleSmall(
+                                    text = incubator.location,
                                     fontWeight = FontWeight.Bold
                                 )
                             }
@@ -397,9 +423,35 @@ private fun IncubatorDetails(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Column {
+                                TextTitleSmall(text = stringResource(id = R.string.normal_humidity))
+                                TextTitleSmall(
+                                    text = incubator.normalHumidityRange.toString() + " %",
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                        }
+
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium, Alignment.CenterHorizontally),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column {
                                 TextTitleSmall(text = stringResource(id = R.string.manufacturer))
                                 TextTitleSmall(
                                     text = incubator.manufacturer,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                        }
+
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium, Alignment.CenterHorizontally),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column {
+                                TextTitleSmall(text = stringResource(id = R.string.status))
+                                TextTitleSmall(
+                                    text = incubator.status,
                                     fontWeight = FontWeight.Bold
                                 )
                             }
