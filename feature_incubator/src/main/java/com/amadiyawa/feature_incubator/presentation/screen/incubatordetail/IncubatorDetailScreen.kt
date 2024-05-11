@@ -7,7 +7,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -672,7 +671,7 @@ private fun BabyDetails(
                             )
 
                             Column {
-                                TextTitleSmall(text = stringResource(id = R.string.baby))
+                                TextTitleSmall(text = stringResource(id = R.string.temperature))
                                 TextTitleSmall(
                                     text = "${baby.currentTemperature} \u00B0C",
                                     fontWeight = FontWeight.Bold
@@ -770,7 +769,7 @@ private fun BabyDetails(
                             )
 
                             Column {
-                                TextTitleSmall(text = stringResource(id = R.string.baby))
+                                TextTitleSmall(text = stringResource(id = R.string.normal_temperature))
                                 TextTitleSmall(
                                     text = "${baby.normalTemperatureRange} \u00B0C",
                                     fontWeight = FontWeight.Bold
