@@ -22,5 +22,7 @@ data class Baby(
     val bloodPressure: Int,
     val spo2: Double,
     val normalSpo2Range: Pair<Double, Double>,
-    val picture: String
+    val picture: String,
+    val currentHumidity: Double,
+    val normalHumidityRange: Pair<Double, Double>,
 )

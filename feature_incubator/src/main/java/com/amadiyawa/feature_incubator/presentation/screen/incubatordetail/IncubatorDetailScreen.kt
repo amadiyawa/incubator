@@ -141,7 +141,9 @@ private fun HandleUiState() {
             bloodPressure = 120,
             spo2 = 46.0,
             normalSpo2Range = Pair(40.0, 50.0),
-            picture = "https://www.example.com/picture.jpg"
+            picture = "https://www.example.com/picture.jpg",
+            currentHumidity = 45.0,
+            normalHumidityRange = Pair(40.0, 50.0),
         )
     )
 
@@ -177,7 +179,10 @@ private fun TemperatureOverview(incubator: Incubator) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Row(
-            horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium, Alignment.CenterHorizontally),
+            horizontalArrangement = Arrangement.spacedBy(
+                Dimen.Spacing.medium,
+                Alignment.CenterHorizontally
+            ),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
@@ -198,7 +203,10 @@ private fun TemperatureOverview(incubator: Incubator) {
         Spacer(modifier = Modifier.weight(1f))
 
         Row(
-            horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium, Alignment.CenterHorizontally),
+            horizontalArrangement = Arrangement.spacedBy(
+                Dimen.Spacing.medium,
+                Alignment.CenterHorizontally
+            ),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
@@ -208,7 +216,7 @@ private fun TemperatureOverview(incubator: Incubator) {
             )
 
             Column {
-                TextTitleSmall(text = stringResource(id = R.string.weight))
+                TextTitleSmall(text = stringResource(id = R.string.baby))
                 TextTitleSmall(
                     text = babyTemperatureString,
                     fontWeight = FontWeight.Bold
@@ -462,7 +470,10 @@ private fun BabyDetails(
                         verticalArrangement = Arrangement.spacedBy(Dimen.Spacing.large)
                     ) {
                         Row(
-                            horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium, Alignment.CenterHorizontally),
+                            horizontalArrangement = Arrangement.spacedBy(
+                                Dimen.Spacing.medium,
+                                Alignment.CenterHorizontally
+                            ),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Icon(
@@ -482,7 +493,10 @@ private fun BabyDetails(
                         }
 
                         Row(
-                            horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium, Alignment.CenterHorizontally),
+                            horizontalArrangement = Arrangement.spacedBy(
+                                Dimen.Spacing.medium,
+                                Alignment.CenterHorizontally
+                            ),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Icon(
@@ -508,7 +522,10 @@ private fun BabyDetails(
                         verticalArrangement = Arrangement.spacedBy(Dimen.Spacing.large)
                     ) {
                         Row(
-                            horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium, Alignment.CenterHorizontally),
+                            horizontalArrangement = Arrangement.spacedBy(
+                                Dimen.Spacing.medium,
+                                Alignment.CenterHorizontally
+                            ),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Icon(
@@ -527,7 +544,10 @@ private fun BabyDetails(
                         }
 
                         Row(
-                            horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium, Alignment.CenterHorizontally),
+                            horizontalArrangement = Arrangement.spacedBy(
+                                Dimen.Spacing.medium,
+                                Alignment.CenterHorizontally
+                            ),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Icon(
@@ -561,7 +581,10 @@ private fun BabyOverview(baby: Baby) {
                 color = MaterialTheme.colorScheme.surface
             )
             .padding(start = Dimen.Spacing.large, bottom = Dimen.Spacing.large),
-        horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.small, Alignment.CenterHorizontally),
+        horizontalArrangement = Arrangement.spacedBy(
+            Dimen.Spacing.small,
+            Alignment.CenterHorizontally
+        ),
         verticalAlignment = Alignment.CenterVertically,
 
     ) {
@@ -575,7 +598,10 @@ private fun BabyOverview(baby: Baby) {
         }
 
         Column(
-            verticalArrangement = Arrangement.spacedBy(Dimen.Spacing.extraSmall, Alignment.CenterVertically),
+            verticalArrangement = Arrangement.spacedBy(
+                Dimen.Spacing.extraSmall,
+                Alignment.CenterVertically
+            ),
             horizontalAlignment = Alignment.Start,
         ) {
             TextTitleMedium(

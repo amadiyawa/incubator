@@ -17,4 +17,5 @@
     <string name="manufacturer">Manufacturer</string>
     <string name="next_maintenance">Next maintenance</string>
     <string name="last_maintenance">Last maintenance</string>
+    <string name="baby">Baby</string>
 </resources>
