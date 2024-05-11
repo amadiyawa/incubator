@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="empty_toolbar_title">\"\"</string>
+    <string name="back">Retour</string>
+    <string name="incubator">Incubateur</string>
+    <string name="incubator_detail_demo">Démonstration d\'incubateur</string>
+    <string name="baby_incubator">Baby Incubator</string>
+    <string name="coming_soon">Bientôt disponible</string>
+    <string name="live_incubator">Incubateur en direct</string>
+    <string name="video_player">Lecteur vidéo</string>
+    <string name="baby_parameters">Paramètres du bébé</string>
+    <string name="incubator_settings">Paramètres de l\'incubateur</string>
+    <string name="weight">Poids</string>
+    <string name="blood_pressure">Pression artérielle</string>
+    <string name="heart_rate">Fréquence cardiaque</string>
+    <string name="spo2">SPO2</string>
+    <string name="incubator_temperature">Température de l\'incubateur</string>
+    <string name="model">Modèle</string>
+    <string name="manufacturer">Fabricant</string>
+    <string name="next_maintenance">Prochain entretien</string>
+    <string name="last_maintenance">Dernier entretien</string>
+    <string name="baby">Bébé</string>
+    <string name="humidity">Humidité</string>
+    <string name="normal_humidity">Humidité normale</string>
+    <string name="location">Emplacement</string>
+    <string name="status">Statut</string>
+    <string name="temperature">Température</string>
+    <string name="normal_temperature">Température normale</string>
+</resources>

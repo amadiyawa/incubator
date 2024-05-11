@@ -62,6 +62,6 @@ private fun HandleUiState() {
             .fillMaxSize()
             .padding(Dimen.Padding.screenContent)
     ) {
-        TextTitleLarge(text = stringResource(R.string.comming_soon))
+        TextTitleLarge(text = stringResource(R.string.coming_soon))
     }
 }

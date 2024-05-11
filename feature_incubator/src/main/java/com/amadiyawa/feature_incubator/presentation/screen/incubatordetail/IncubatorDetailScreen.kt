@@ -28,6 +28,7 @@ import androidx.compose.material.icons.outlined.MonitorHeart
 import androidx.compose.material.icons.outlined.MonitorWeight
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -46,6 +47,7 @@ import androidx.compose.ui.unit.dp
 import com.amadiyawa.feature_base.common.res.Dimen
 import com.amadiyawa.feature_base.common.util.formatDate
 import com.amadiyawa.feature_base.presentation.compose.composable.DrawHorizontalDottedLine
+import com.amadiyawa.feature_base.presentation.compose.composable.ExpandableRow
 import com.amadiyawa.feature_base.presentation.compose.composable.PlaceholderImage
 import com.amadiyawa.feature_base.presentation.compose.composable.TextTitleMedium
 import com.amadiyawa.feature_base.presentation.compose.composable.TextTitleSmall
@@ -322,6 +324,8 @@ fun DesktopIconBottom() {
 private fun IncubatorDetails(
     incubator: Incubator
 ) {
+    var expandedIncubator by remember { mutableStateOf (false) }
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -378,35 +382,9 @@ private fun IncubatorDetails(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Column {
-                                TextTitleSmall(text = stringResource(id = R.string.model))
+                                TextTitleSmall(text = stringResource(id = R.string.temperature))
                                 TextTitleSmall(
-                                    text = incubator.model,
-                                    fontWeight = FontWeight.Bold
-                                )
-                            }
-                        }
-
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium, Alignment.CenterHorizontally),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Column {
-                                TextTitleSmall(text = stringResource(id = R.string.location))
-                                TextTitleSmall(
-                                    text = incubator.location,
-                                    fontWeight = FontWeight.Bold
-                                )
-                            }
-                        }
-
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium, Alignment.CenterHorizontally),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Column {
-                                TextTitleSmall(text = stringResource(id = R.string.last_maintenance))
-                                TextTitleSmall(
-                                    text = formatDate(incubator.lastMaintenanceDate),
+                                    text = "${incubator.currentTemperature} \u00B0C" ,
                                     fontWeight = FontWeight.Bold
                                 )
                             }
@@ -436,39 +414,128 @@ private fun IncubatorDetails(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Column {
-                                TextTitleSmall(text = stringResource(id = R.string.manufacturer))
+                                TextTitleSmall(text = stringResource(id = R.string.normal_temperature))
                                 TextTitleSmall(
-                                    text = incubator.manufacturer,
+                                    text = incubator.normalTemperatureRange.toString() + " \u00B0C",
                                     fontWeight = FontWeight.Bold
                                 )
                             }
                         }
+                    }
+                }
+            }
 
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium, Alignment.CenterHorizontally),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Column {
-                                TextTitleSmall(text = stringResource(id = R.string.status))
-                                TextTitleSmall(
-                                    text = incubator.status,
-                                    fontWeight = FontWeight.Bold
-                                )
-                            }
-                        }
+            HorizontalDivider(thickness = 2.dp, color = MaterialTheme.colorScheme.background)
 
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium, Alignment.CenterHorizontally),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Column {
-                                TextTitleSmall(text = stringResource(id = R.string.next_maintenance))
-                                TextTitleSmall(
-                                    text = formatDate(incubator.nextMaintenanceDate),
-                                    fontWeight = FontWeight.Bold
-                                )
-                            }
-                        }
+            ExpandableRow(
+                modifier = Modifier
+                    .padding(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 8.dp),
+                expanded = expandedIncubator
+            ) {
+                expandedIncubator = !expandedIncubator
+            }
+
+            AnimatedVisibility(visible = expandedIncubator) {
+                MoreIncubatorInfo(incubator = incubator)
+            }
+        }
+    }
+}
+
+@Composable
+private fun MoreIncubatorInfo(incubator: Incubator) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Row {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(Dimen.Spacing.large)
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium, Alignment.CenterHorizontally),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column {
+                        TextTitleSmall(text = stringResource(id = R.string.model))
+                        TextTitleSmall(
+                            text = incubator.model,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
+
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium, Alignment.CenterHorizontally),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column {
+                        TextTitleSmall(text = stringResource(id = R.string.location))
+                        TextTitleSmall(
+                            text = incubator.location,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
+
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium, Alignment.CenterHorizontally),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column {
+                        TextTitleSmall(text = stringResource(id = R.string.last_maintenance))
+                        TextTitleSmall(
+                            text = formatDate(incubator.lastMaintenanceDate),
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            Column(
+                verticalArrangement = Arrangement.spacedBy(Dimen.Spacing.large)
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium, Alignment.CenterHorizontally),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column {
+                        TextTitleSmall(text = stringResource(id = R.string.manufacturer))
+                        TextTitleSmall(
+                            text = incubator.manufacturer,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
+
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium, Alignment.CenterHorizontally),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column {
+                        TextTitleSmall(text = stringResource(id = R.string.status))
+                        TextTitleSmall(
+                            text = incubator.status,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
+
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium, Alignment.CenterHorizontally),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column {
+                        TextTitleSmall(text = stringResource(id = R.string.next_maintenance))
+                        TextTitleSmall(
+                            text = formatDate(incubator.nextMaintenanceDate),
+                            fontWeight = FontWeight.Bold
+                        )
                     }
                 }
             }
@@ -496,7 +563,7 @@ private fun BabyDetails(
                     .padding(16.dp)
             ) {
                 TextTitleMedium(
-                    text = stringResource(id = R.string.baby_settings),
+                    text = stringResource(id = R.string.baby_parameters),
                     fontWeight = FontWeight.Bold
                 )
             }
@@ -532,7 +599,7 @@ private fun BabyDetails(
                                 imageVector = Icons.Outlined.MonitorWeight,
                                 contentDescription = baby.weight.toString(),
                                 tint = Color(0xFF98FB98),
-                                modifier = Modifier.size(48.dp)
+                                modifier = Modifier.size(Dimen.Size.medium)
                             )
 
                             Column {
@@ -555,7 +622,7 @@ private fun BabyDetails(
                                 painter = painterResource(id = R.drawable.blood_pressure),
                                 contentDescription = baby.weight.toString(),
                                 tint = Color(0xFFFF6961),
-                                modifier = Modifier.height(IntrinsicSize.Max)
+                                modifier = Modifier.size(Dimen.Size.medium)
                             )
 
                             Column {
@@ -578,13 +645,36 @@ private fun BabyDetails(
                                 painter = painterResource(id = R.drawable.humidity_high),
                                 contentDescription = baby.weight.toString(),
                                 tint = Color(0xFF87CEFA),
-                                modifier = Modifier.height(IntrinsicSize.Max)
+                                modifier = Modifier.size(Dimen.Size.medium)
                             )
 
                             Column {
                                 TextTitleSmall(text = stringResource(id = R.string.humidity))
                                 TextTitleSmall(
                                     text = baby.currentHumidity.toString() + " %",
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                        }
+
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(
+                                Dimen.Spacing.medium,
+                                Alignment.CenterHorizontally
+                            ),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                painter = painterResource(id =R.drawable.thermometer),
+                                contentDescription = baby.currentTemperature.toString(),
+                                tint = Color(0xFFFF5722),
+                                modifier = Modifier.size(Dimen.Size.medium)
+                            )
+
+                            Column {
+                                TextTitleSmall(text = stringResource(id = R.string.baby))
+                                TextTitleSmall(
+                                    text = "${baby.currentTemperature} \u00B0C",
                                     fontWeight = FontWeight.Bold
                                 )
                             }
@@ -606,7 +696,8 @@ private fun BabyDetails(
                             Icon(
                                 painter = painterResource(id =R.drawable.spo2),
                                 contentDescription = baby.weight.toString(),
-                                tint = Color(0xFF00BFFF)
+                                tint = Color(0xFF00BFFF),
+                                modifier = Modifier.size(Dimen.Size.medium)
                             )
 
                             Column {
@@ -629,7 +720,7 @@ private fun BabyDetails(
                                 imageVector = Icons.Outlined.MonitorHeart,
                                 contentDescription = baby.weight.toString(),
                                 tint = Color(0xFFFF6961),
-                                modifier = Modifier.size(Dimen.Size.large)
+                                modifier = Modifier.size(Dimen.Size.medium)
                             )
 
                             Column {
@@ -652,13 +743,36 @@ private fun BabyDetails(
                                 painter = painterResource(id = R.drawable.humidity_mid),
                                 contentDescription = baby.weight.toString(),
                                 tint = Color(0xFF87CEFA),
-                                modifier = Modifier.height(IntrinsicSize.Max)
+                                modifier = Modifier.size(Dimen.Size.medium)
                             )
 
                             Column {
                                 TextTitleSmall(text = stringResource(id = R.string.normal_humidity))
                                 TextTitleSmall(
                                     text = baby.normalHumidityRange.toString() + " %",
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                        }
+
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(
+                                Dimen.Spacing.medium,
+                                Alignment.CenterHorizontally
+                            ),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                painter = painterResource(id =R.drawable.thermometer),
+                                contentDescription = baby.currentTemperature.toString(),
+                                tint = Color(0xFF87CEFA),
+                                modifier = Modifier.size(Dimen.Size.medium)
+                            )
+
+                            Column {
+                                TextTitleSmall(text = stringResource(id = R.string.baby))
+                                TextTitleSmall(
+                                    text = "${baby.normalTemperatureRange} \u00B0C",
                                     fontWeight = FontWeight.Bold
                                 )
                             }

@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="empty_toolbar_title">\"\"</string>
+    <string name="back">Back</string>
     <string name="incubator">Incubator</string>
     <string name="incubator_detail_demo">Incubator demo</string>
     <string name="baby_incubator">Baby incubator</string>
-    <string name="comming_soon">Coming soon</string>
+    <string name="coming_soon">Coming soon</string>
     <string name="live_incubator">Live incubator</string>
     <string name="video_player">Video player</string>
-    <string name="baby_settings">Baby settings</string>
+    <string name="baby_parameters">Baby parameters</string>
     <string name="incubator_settings">Incubator settings</string>
     <string name="weight">Weight</string>
     <string name="blood_pressure">Blood pressure</string>
@@ -22,4 +24,6 @@
     <string name="normal_humidity">Normal humidity</string>
     <string name="location">Location</string>
     <string name="status">Status</string>
+    <string name="temperature">Temperature</string>
+    <string name="normal_temperature">Normal temperature</string>
 </resources>
