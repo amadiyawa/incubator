@@ -339,7 +339,7 @@ private fun IncubatorDetails(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
+                    .padding(Dimen.Spacing.large)
             ) {
                 TextTitleMedium(
                     text = stringResource(id = R.string.incubator_settings),
@@ -356,7 +356,7 @@ private fun IncubatorDetails(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp),
+                    .padding(Dimen.Spacing.large),
                 verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -447,7 +447,7 @@ private fun MoreIncubatorInfo(incubator: Incubator) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(Dimen.Spacing.large),
         verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -549,8 +549,7 @@ private fun BabyDetails(
 ) {
     Card(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 6.dp),
+            .fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
     ) {
         Column(
@@ -560,7 +559,7 @@ private fun BabyDetails(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
+                    .padding(Dimen.Spacing.large)
             ) {
                 TextTitleMedium(
                     text = stringResource(id = R.string.baby_parameters),
@@ -577,11 +576,10 @@ private fun BabyDetails(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
+                    .padding(Dimen.Spacing.large),
+                verticalArrangement = Arrangement.spacedBy(Dimen.Spacing.medium, Alignment.CenterVertically),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-
                 BabyOverview(baby = baby)
 
                 Row {
