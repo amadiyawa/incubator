@@ -38,13 +38,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.amadiyawa.feature_base.common.res.Dimen
 import com.amadiyawa.feature_base.common.util.formatDate
+import com.amadiyawa.feature_base.presentation.compose.composable.AppColor
 import com.amadiyawa.feature_base.presentation.compose.composable.DrawHorizontalDottedLine
 import com.amadiyawa.feature_base.presentation.compose.composable.ExpandableRow
 import com.amadiyawa.feature_base.presentation.compose.composable.PlaceholderImage
@@ -54,14 +54,12 @@ import com.amadiyawa.feature_incubator.R
 import com.amadiyawa.feature_incubator.domain.model.Baby
 import com.amadiyawa.feature_incubator.domain.model.Incubator
 import com.amadiyawa.feature_incubator.presentation.compose.composable.Toolbar
-import timber.log.Timber
 
 @Composable
 fun IncubatorDetailScreen(
     onBackClick: () -> Unit,
     incubatorId: String
 ) {
-    Timber.d("IncubatorDetailScreen: incubatorId: $incubatorId")
     Scaffold(
         contentColor = MaterialTheme.colorScheme.onBackground,
         topBar = {
@@ -189,7 +187,7 @@ private fun TemperatureOverview(incubator: Incubator) {
             Icon(
                 painter = painterResource(id =R.drawable.thermometer),
                 contentDescription = incubator.currentTemperature.toString(),
-                tint = Color(0xFF2196F3)
+                tint = AppColor.DodgerBlue
             )
 
             Column {
@@ -210,12 +208,6 @@ private fun TemperatureOverview(incubator: Incubator) {
             ),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                painter = painterResource(id =R.drawable.thermometer),
-                contentDescription = incubator.currentTemperature.toString(),
-                tint = Color(0xFFFF5722)
-            )
-
             Column {
                 TextTitleSmall(text = stringResource(id = R.string.baby))
                 TextTitleSmall(
@@ -223,6 +215,12 @@ private fun TemperatureOverview(incubator: Incubator) {
                     fontWeight = FontWeight.Bold
                 )
             }
+
+            Icon(
+                painter = painterResource(id =R.drawable.thermometer),
+                contentDescription = incubator.currentTemperature.toString(),
+                tint = AppColor.Coral
+            )
         }
     }
 }
@@ -247,7 +245,7 @@ private fun IncubatorVideoStream() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable { expanded = !expanded }
-                    .background(Color(0xFF2f3135))
+                    .background(color = AppColor.Charcoal)
             ) {
                 Row(
                     modifier = Modifier
@@ -282,17 +280,20 @@ fun LiveStream() {
         modifier = Modifier
             .height(200.dp)
             .fillMaxWidth()
-            .background(Color.LightGray)
+            .background(color = AppColor.DimGray)
             .border(
                 width = Dimen.Spacing.small,
-                color = Color(0xFF2f3135),
+                color = AppColor.Charcoal,
                 shape = RoundedCornerShape(
                     bottomStart = Dimen.Spacing.medium,
                     bottomEnd = Dimen.Spacing.medium
                 )
             )
     ) {
-        TextTitleSmall(text = stringResource(id = R.string.video_player), modifier = Modifier.align(Alignment.Center))
+        TextTitleSmall(
+            text = stringResource(id = R.string.video_player),
+            modifier = Modifier.align(Alignment.Center)
+        )
     }
 }
 
@@ -307,14 +308,14 @@ fun DesktopIconBottom() {
         Box(
             modifier = Modifier
                 .size(Dimen.Size.extraSmall)
-                .background(Color(0xFF2f3135))
+                .background(color = AppColor.Charcoal)
         )
 
         Box(
             modifier = Modifier
                 .width(Dimen.Size.extraLarge)
                 .height(Dimen.Spacing.medium)
-                .background(Color(0xFF2f3135))
+                .background(color = AppColor.Charcoal)
         )
     }
 }
@@ -597,7 +598,7 @@ private fun BabyDetails(
                             Icon(
                                 imageVector = Icons.Outlined.MonitorWeight,
                                 contentDescription = baby.weight.toString(),
-                                tint = Color(0xFF98FB98),
+                                tint = AppColor.MintCream,
                                 modifier = Modifier.size(Dimen.Size.medium)
                             )
 
@@ -620,7 +621,7 @@ private fun BabyDetails(
                             Icon(
                                 painter = painterResource(id = R.drawable.blood_pressure),
                                 contentDescription = baby.weight.toString(),
-                                tint = Color(0xFFFF6961),
+                                tint = AppColor.Tomato,
                                 modifier = Modifier.size(Dimen.Size.medium)
                             )
 
@@ -643,7 +644,7 @@ private fun BabyDetails(
                             Icon(
                                 painter = painterResource(id = R.drawable.humidity_high),
                                 contentDescription = baby.weight.toString(),
-                                tint = Color(0xFF87CEFA),
+                                tint = AppColor.SkyBlue,
                                 modifier = Modifier.size(Dimen.Size.medium)
                             )
 
@@ -666,7 +667,7 @@ private fun BabyDetails(
                             Icon(
                                 painter = painterResource(id =R.drawable.thermometer),
                                 contentDescription = baby.currentTemperature.toString(),
-                                tint = Color(0xFFFF5722),
+                                tint = AppColor.Coral,
                                 modifier = Modifier.size(Dimen.Size.medium)
                             )
 
@@ -695,7 +696,7 @@ private fun BabyDetails(
                             Icon(
                                 painter = painterResource(id =R.drawable.spo2),
                                 contentDescription = baby.weight.toString(),
-                                tint = Color(0xFF00BFFF),
+                                tint = AppColor.DeepSkyBlue,
                                 modifier = Modifier.size(Dimen.Size.medium)
                             )
 
@@ -718,7 +719,7 @@ private fun BabyDetails(
                             Icon(
                                 imageVector = Icons.Outlined.MonitorHeart,
                                 contentDescription = baby.weight.toString(),
-                                tint = Color(0xFFFF6961),
+                                tint = AppColor.Coral,
                                 modifier = Modifier.size(Dimen.Size.medium)
                             )
 
@@ -741,7 +742,7 @@ private fun BabyDetails(
                             Icon(
                                 painter = painterResource(id = R.drawable.humidity_mid),
                                 contentDescription = baby.weight.toString(),
-                                tint = Color(0xFF87CEFA),
+                                tint = AppColor.SkyBlue,
                                 modifier = Modifier.size(Dimen.Size.medium)
                             )
 
@@ -764,7 +765,7 @@ private fun BabyDetails(
                             Icon(
                                 painter = painterResource(id =R.drawable.thermometer),
                                 contentDescription = baby.currentTemperature.toString(),
-                                tint = Color(0xFF87CEFA),
+                                tint = AppColor.SkyBlue,
                                 modifier = Modifier.size(Dimen.Size.medium)
                             )
 
