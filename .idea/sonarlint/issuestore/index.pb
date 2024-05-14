@@ -240,3 +240,11 @@ O
 feature_auth/proguard-rules.pro,2\c\2cfb14d1ba15364cb49cbd7b2fdfc7665eb1c3ae
 x
 Hfeature_auth/src/test/java/com/amadiyawa/feature_auth/ExampleUnitTest.kt,e\2\e22261fe2656e13b07d0a692603d3e58d7c8f1ff
+|
+Lfeature_auth/src/main/java/com/amadiyawa/feature_auth/domain/model/SignIn.kt,9\d\9d9662229b037ad4e81fcae8d198acd0e4456452
+|
+Lfeature_auth/src/main/java/com/amadiyawa/feature_auth/domain/model/SignUp.kt,7\3\7362f0c781cf0e7b6aeb7cbc179b201ba7347e97
+å
+\feature_auth/src/main/java/com/amadiyawa/feature_auth/presentation/screen/auth/AuthScreen.kt,d\1\d1504349366424483374406dde8c239c5eaf0d17
+è
+_feature_auth/src/main/java/com/amadiyawa/feature_auth/presentation/navigation/AuthNavigation.kt,e\f\efe8bbfa9fecd3b1c3fe0b452d204c576b6b3a6b

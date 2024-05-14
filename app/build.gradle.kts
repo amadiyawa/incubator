@@ -56,6 +56,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.featureAuth)
     implementation(projects.featureIncubator)
 
     // Import the Firebase BoM
