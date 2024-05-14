@@ -26,4 +26,6 @@
     <string name="status">Statut</string>
     <string name="temperature">Température</string>
     <string name="normal_temperature">Température normale</string>
+    <string name="country_flag">Drapeau d\'un pays</string>
+    <string name="hum_rh">Hum (RH)</string>
 </resources>

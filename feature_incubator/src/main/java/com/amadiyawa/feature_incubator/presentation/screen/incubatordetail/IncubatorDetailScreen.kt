@@ -38,6 +38,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -167,7 +168,6 @@ private fun HandleUiState() {
 @Composable
 private fun TemperatureOverview(incubator: Incubator) {
     val incubatorTemperatureString = "${incubator.currentTemperature} \u00B0C"
-    val babyTemperatureString = "${incubator.baby.currentTemperature} \u00B0C"
 
     Row(
         modifier = Modifier
@@ -191,7 +191,7 @@ private fun TemperatureOverview(incubator: Incubator) {
             )
 
             Column {
-                TextTitleSmall(text = stringResource(id = R.string.incubator))
+                TextTitleSmall(text = stringResource(id = R.string.temperature))
                 TextTitleSmall(
                     text = incubatorTemperatureString,
                     fontWeight = FontWeight.Bold
@@ -209,17 +209,17 @@ private fun TemperatureOverview(incubator: Incubator) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column {
-                TextTitleSmall(text = stringResource(id = R.string.baby))
+                TextTitleSmall(text = stringResource(id = R.string.humidity))
                 TextTitleSmall(
-                    text = babyTemperatureString,
+                    text = "${incubator.currentHumidity} RH",
                     fontWeight = FontWeight.Bold
                 )
             }
 
             Icon(
-                painter = painterResource(id =R.drawable.thermometer),
-                contentDescription = incubator.currentTemperature.toString(),
-                tint = AppColor.Coral
+                painter = painterResource(id =R.drawable.humidity_high),
+                contentDescription = incubator.currentHumidity.toString(),
+                tint = AppColor.SkyBlue
             )
         }
     }
@@ -336,14 +336,36 @@ private fun IncubatorDetails(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            Column(
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(Dimen.Spacing.large)
+                    .padding(Dimen.Spacing.large),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
             ) {
+                Icon(
+                    modifier = Modifier
+                        .size(Dimen.Size.small),
+                    painter = painterResource(id = R.drawable.cameroon_flag_icon),
+                    contentDescription = stringResource(id = R.string.country_flag),
+                    tint = Color.Unspecified
+                )
+
+                Spacer(modifier = Modifier.weight(1f))
+
                 TextTitleMedium(
                     text = stringResource(id = R.string.incubator_settings),
                     fontWeight = FontWeight.Bold
+                )
+
+                Spacer(modifier = Modifier.weight(1f))
+
+                Icon(
+                    modifier = Modifier
+                        .size(Dimen.Size.large),
+                    painter = painterResource(id = R.drawable.aui),
+                    contentDescription = stringResource(id = R.string.country_flag),
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
 
@@ -556,14 +578,36 @@ private fun BabyDetails(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            Column(
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(Dimen.Spacing.large)
+                    .padding(Dimen.Spacing.large),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
             ) {
+                Icon(
+                    modifier = Modifier
+                        .size(Dimen.Size.small),
+                    painter = painterResource(id = R.drawable.cameroon_flag_icon),
+                    contentDescription = stringResource(id = R.string.country_flag),
+                    tint = Color.Unspecified
+                )
+
+                Spacer(modifier = Modifier.weight(1f))
+
                 TextTitleMedium(
                     text = stringResource(id = R.string.baby_parameters),
                     fontWeight = FontWeight.Bold
+                )
+
+                Spacer(modifier = Modifier.weight(1f))
+
+                Icon(
+                    modifier = Modifier
+                        .size(Dimen.Size.large),
+                    painter = painterResource(id = R.drawable.aui),
+                    contentDescription = stringResource(id = R.string.country_flag),
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
 
@@ -663,16 +707,16 @@ private fun BabyDetails(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Icon(
-                                painter = painterResource(id =R.drawable.thermometer),
-                                contentDescription = baby.currentTemperature.toString(),
-                                tint = AppColor.Coral,
+                                painter = painterResource(id =R.drawable.spo2),
+                                contentDescription = baby.weight.toString(),
+                                tint = AppColor.DeepSkyBlue,
                                 modifier = Modifier.size(Dimen.Size.medium)
                             )
 
                             Column {
-                                TextTitleSmall(text = stringResource(id = R.string.temperature))
+                                TextTitleSmall(text = stringResource(id = R.string.spo2))
                                 TextTitleSmall(
-                                    text = "${baby.currentTemperature} \u00B0C",
+                                    text = baby.spo2.toString() + " %",
                                     fontWeight = FontWeight.Bold
                                 )
                             }
@@ -692,16 +736,16 @@ private fun BabyDetails(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Icon(
-                                painter = painterResource(id =R.drawable.spo2),
-                                contentDescription = baby.weight.toString(),
-                                tint = AppColor.DeepSkyBlue,
+                                painter = painterResource(id =R.drawable.thermometer),
+                                contentDescription = baby.currentTemperature.toString(),
+                                tint = AppColor.DodgerBlue,
                                 modifier = Modifier.size(Dimen.Size.medium)
                             )
 
                             Column {
-                                TextTitleSmall(text = stringResource(id = R.string.spo2))
+                                TextTitleSmall(text = stringResource(id = R.string.temperature))
                                 TextTitleSmall(
-                                    text = baby.spo2.toString() + " %",
+                                    text = "${baby.currentTemperature} \u00B0C",
                                     fontWeight = FontWeight.Bold
                                 )
                             }
@@ -717,7 +761,7 @@ private fun BabyDetails(
                             Icon(
                                 imageVector = Icons.Outlined.MonitorHeart,
                                 contentDescription = baby.weight.toString(),
-                                tint = AppColor.Coral,
+                                tint = AppColor.Tomato,
                                 modifier = Modifier.size(Dimen.Size.medium)
                             )
 

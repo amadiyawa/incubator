@@ -2,6 +2,8 @@ rootProject.name = "IncubaTor"
 
 include(
     ":app",
+    ":feature_auth",
+    ":feature_incubator",
     ":feature_base"
 )
 
@@ -34,4 +36,3 @@ dependencyResolutionManagement {
 // This feature is particularly useful in a multi-module project setup, where you often need to declare dependencies on other projects.
 // By enabling this feature, you can access other projects in your settings.gradle.kts file in a type-safe manner.
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-include(":feature_incubator")

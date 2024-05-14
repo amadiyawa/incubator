@@ -10,6 +10,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/feature_auth" />
             <option value="$PROJECT_DIR$/feature_base" />
             <option value="$PROJECT_DIR$/feature_incubator" />
           </set>
