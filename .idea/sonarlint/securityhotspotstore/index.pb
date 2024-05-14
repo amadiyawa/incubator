@@ -226,3 +226,17 @@ P
  app/release/output-metadata.json,0\7\079ee2b81fdfd2faf349bcf552fe1a1bc16be431
 ‘
 afeature_base/src/main/java/com/amadiyawa/feature_base/presentation/compose/composable/AppColor.kt,8\1\814492798041edd69f55e4abb8ba1d932f21d272
+‡
+Wfeature_auth/src/androidTest/java/com/amadiyawa/feature_auth/ExampleInstrumentedTest.kt,d\5\d54a99d9057c51cac998f3ad26eb776720a671dc
+G
+feature_auth/.gitignore,7\7\776effd039f354fae4357e1bd227d10d5075ab3e
+Y
+)feature_auth/src/main/AndroidManifest.xml,6\8\682ada20012273c22d36ea0b843935261aacf8cd
+O
+feature_auth/consumer-rules.pro,b\9\b9e41de680770685b76c34ed6ff7ff10c147cfa4
+M
+feature_auth/build.gradle.kts,c\5\c5ee21c3d51cedbec0e12d2e3997223fa44276d8
+O
+feature_auth/proguard-rules.pro,2\c\2cfb14d1ba15364cb49cbd7b2fdfc7665eb1c3ae
+x
+Hfeature_auth/src/test/java/com/amadiyawa/feature_auth/ExampleUnitTest.kt,e\2\e22261fe2656e13b07d0a692603d3e58d7c8f1ff
