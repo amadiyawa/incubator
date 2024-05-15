@@ -248,3 +248,9 @@ Lfeature_auth/src/main/java/com/amadiyawa/feature_auth/domain/model/SignUp.kt,7
 \feature_auth/src/main/java/com/amadiyawa/feature_auth/presentation/screen/auth/AuthScreen.kt,d\1\d1504349366424483374406dde8c239c5eaf0d17
 è
 _feature_auth/src/main/java/com/amadiyawa/feature_auth/presentation/navigation/AuthNavigation.kt,e\f\efe8bbfa9fecd3b1c3fe0b452d204c576b6b3a6b
+è
+_feature_auth/src/main/java/com/amadiyawa/feature_auth/presentation/screen/auth/AuthViewModel.kt,6\9\690a86b28fabfdcdaf8179491a92125926a8a516
+à
+Xfeature_auth/src/main/java/com/amadiyawa/feature_auth/presentation/PresentationModule.kt,f\f\ffa8bf69e3281d85e50a0ce611f2cc5e1f270595
+w
+Gfeature_auth/src/main/java/com/amadiyawa/feature_auth/AuthKoinModule.kt,0\9\091d4f645102f7f38cb8f16533c9ca777ec31ca2

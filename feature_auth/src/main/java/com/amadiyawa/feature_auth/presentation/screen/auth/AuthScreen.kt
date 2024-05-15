@@ -17,24 +17,30 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.amadiyawa.feature_auth.R
 import com.amadiyawa.feature_base.common.res.Dimen
 import com.amadiyawa.feature_base.presentation.compose.composable.TextTitleLarge
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun AuthScreen(
     onSignIn: () -> Unit
 ) {
+    val viewModel: AuthViewModel = koinViewModel()
+
     Scaffold(
         contentWindowInsets = WindowInsets(0, 0, 0, 0)
     ) { paddingValues ->
         SetupContent(
             paddingValues = paddingValues,
-            onSignIn = onSignIn
+            onSignIn = onSignIn,
+            viewModel = viewModel
         )
     }
 }
@@ -42,22 +48,27 @@ fun AuthScreen(
 @Composable
 private fun SetupContent(
     paddingValues: PaddingValues,
-    onSignIn: () -> Unit
+    onSignIn: () -> Unit,
+    viewModel: AuthViewModel
 ) {
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(paddingValues)
     ){
-        HandleUiState(onSignIn = onSignIn)
+        HandleUiState(
+            onSignIn = onSignIn,
+            viewModel = viewModel
+        )
     }
 }
 
 @Composable
 private fun HandleUiState(
-    onSignIn: () -> Unit
+    onSignIn: () -> Unit,
+    viewModel: AuthViewModel
 ) {
-    val email = "amadiyawa"
-    val password = "amadiyawa@yahoo.fr"
+    val emailSignIn by viewModel.emailSignIn.collectAsStateWithLifecycle()
+    val passwordSignIn by viewModel.passwordSignIn.collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier
@@ -79,7 +90,7 @@ private fun HandleUiState(
                 )
 
                 OutlinedTextField(
-                    value = email,
+                    value = emailSignIn,
                     onValueChange = {  },
                     label = { Text("Email") },
                     singleLine = true,
@@ -90,7 +101,7 @@ private fun HandleUiState(
                 )
 
                 OutlinedTextField(
-                    value = password,
+                    value = passwordSignIn,
                     onValueChange = {  },
                     label = { Text("Password") },
                     singleLine = true,
@@ -102,7 +113,7 @@ private fun HandleUiState(
 
                 Button(
                     onClick = { onSignIn() },
-                    enabled = email.isNotBlank(),
+                    enabled = emailSignIn.isNotBlank() && passwordSignIn.isNotBlank(),
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(Dimen.Size.extraLarge)
