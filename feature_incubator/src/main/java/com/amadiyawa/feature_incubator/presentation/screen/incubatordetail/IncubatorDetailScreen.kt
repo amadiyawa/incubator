@@ -45,7 +45,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.amadiyawa.feature_base.common.res.Dimen
 import com.amadiyawa.feature_base.common.util.formatDate
-import com.amadiyawa.feature_base.presentation.compose.composable.AppColor
+import com.amadiyawa.feature_base.presentation.theme.AppColor
 import com.amadiyawa.feature_base.presentation.compose.composable.DrawHorizontalDottedLine
 import com.amadiyawa.feature_base.presentation.compose.composable.ExpandableRow
 import com.amadiyawa.feature_base.presentation.compose.composable.PlaceholderImage

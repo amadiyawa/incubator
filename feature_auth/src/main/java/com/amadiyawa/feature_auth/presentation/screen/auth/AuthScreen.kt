@@ -11,21 +11,22 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.amadiyawa.feature_auth.R
+import com.amadiyawa.feature_base.common.enum.TextFieldType
 import com.amadiyawa.feature_base.common.res.Dimen
 import com.amadiyawa.feature_base.presentation.compose.composable.TextTitleLarge
+import kotlinx.coroutines.flow.StateFlow
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -67,8 +68,12 @@ private fun HandleUiState(
     onSignIn: () -> Unit,
     viewModel: AuthViewModel
 ) {
-    val emailSignIn by viewModel.emailSignIn.collectAsStateWithLifecycle()
-    val passwordSignIn by viewModel.passwordSignIn.collectAsStateWithLifecycle()
+    val isSignIn = viewModel.isSignIn.collectAsStateWithLifecycle()
+
+    val emailSignIn = viewModel.emailSignIn.collectAsStateWithLifecycle()
+    val passwordSignIn = viewModel.passwordSignIn.collectAsStateWithLifecycle()
+    val emailSignUp = viewModel.emailSignUp.collectAsStateWithLifecycle()
+    val passwordSignUp = viewModel.passwordSignUp.collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier
@@ -89,38 +94,149 @@ private fun HandleUiState(
                     text = stringResource(id = R.string.auth_title)
                 )
 
-                OutlinedTextField(
-                    value = emailSignIn,
-                    onValueChange = {  },
-                    label = { Text("Email") },
-                    singleLine = true,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .defaultMinSize(minHeight = Dimen.Size.extraLarge),
-                    keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Words)
+                AuthTextField(
+                    params = AuthTextFieldParams(
+                        isSignIn = isSignIn.value,
+                        signInTextField = emailSignIn.value,
+                        signUpTextField = emailSignUp.value,
+                        textFieldTypeSignIn = TextFieldType.EMAIL_SIGN_IN,
+                        textFieldTypeSignUp = TextFieldType.EMAIL_SIGN_UP,
+                        label = "Email",
+                        viewModel = viewModel,
+                        errorMessage = getErrorMessage(
+                            if (isSignIn.value) TextFieldType.EMAIL_SIGN_IN else TextFieldType.EMAIL_SIGN_UP,
+                            viewModel
+                        )
+                    )
                 )
 
-                OutlinedTextField(
-                    value = passwordSignIn,
-                    onValueChange = {  },
-                    label = { Text("Password") },
-                    singleLine = true,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .defaultMinSize(minHeight = Dimen.Size.extraLarge),
-                    keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Words)
+                AuthTextField(
+                    params = AuthTextFieldParams(
+                        isSignIn = isSignIn.value,
+                        signInTextField = passwordSignIn.value,
+                        signUpTextField = passwordSignUp.value,
+                        textFieldTypeSignIn = TextFieldType.PASSWORD_SIGN_IN,
+                        textFieldTypeSignUp = TextFieldType.PASSWORD_SIGN_UP,
+                        label = "Password",
+                        viewModel = viewModel,
+                        visualTransformation = PasswordVisualTransformation(),
+                        errorMessage = getErrorMessage(
+                            if (isSignIn.value) TextFieldType.PASSWORD_SIGN_IN else TextFieldType.PASSWORD_SIGN_UP,
+                            viewModel
+                        )
+                    )
                 )
 
                 Button(
-                    onClick = { onSignIn() },
-                    enabled = emailSignIn.isNotBlank() && passwordSignIn.isNotBlank(),
+                    onClick = {
+                        viewModel.signInOrSignUp()
+                        onSignIn()
+                    },
+                    enabled = viewModel.isButtonEnabled(),
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(Dimen.Size.extraLarge)
                 ) {
-                    Text("Sign In")
+                    Text(text = getButtonText(isSignIn.value))
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun AuthTextField(
+    params: AuthTextFieldParams
+) {
+    val isError = handleTextFieldIsError(
+        textFieldType = if (params.isSignIn) params.textFieldTypeSignIn
+        else params.textFieldTypeSignUp,
+        viewModel = params.viewModel
+    )
+
+    OutlinedTextField(
+        value = getTextFieldValue(
+            isSignIn = params.isSignIn,
+            signInTextField = params.signInTextField,
+            signUpTextField = params.signUpTextField
+        ),
+        onValueChange = {
+            handleOnValueChange(
+                textFieldType = if (params.isSignIn) params.textFieldTypeSignIn
+                else params.textFieldTypeSignUp,
+                viewModel = params.viewModel,
+                value = it
+            )
+        },
+        label = { Text(params.label) },
+        singleLine = true,
+        isError = isError,
+        supportingText = {
+            if (isError) {
+                Text(
+                    text = params.errorMessage,
+                    color = MaterialTheme.colorScheme.error
+                )
+            }
+        },
+        modifier = Modifier
+            .fillMaxWidth()
+            .defaultMinSize(minHeight = Dimen.Size.extraLarge),
+        visualTransformation = params.visualTransformation
+    )
+}
+
+private fun getTextFieldValue(
+    isSignIn: Boolean,
+    signInTextField: String,
+    signUpTextField: String
+): String {
+    return if (isSignIn) signInTextField else signUpTextField
+}
+
+private fun handleOnValueChange(
+    textFieldType: TextFieldType,
+    viewModel: AuthViewModel,
+    value: String,
+) {
+    when (textFieldType) {
+        TextFieldType.EMAIL_SIGN_IN -> viewModel.onEmailSignInChange(value)
+        TextFieldType.PASSWORD_SIGN_IN -> viewModel.onPasswordSignInChange(value)
+        TextFieldType.EMAIL_SIGN_UP -> viewModel.onEmailSignUpChange(value)
+        TextFieldType.PASSWORD_SIGN_UP -> viewModel.onPasswordSignUpChange(value)
+    }
+}
+
+private fun handleTextFieldIsError(
+    textFieldType: TextFieldType,
+    viewModel: AuthViewModel
+): Boolean {
+    return when (textFieldType) {
+        TextFieldType.EMAIL_SIGN_IN -> isBlank(viewModel.emailSignInError)
+        TextFieldType.PASSWORD_SIGN_IN -> isBlank(viewModel.passwordSignInError)
+        TextFieldType.EMAIL_SIGN_UP -> isBlank(viewModel.emailSignUpError)
+        TextFieldType.PASSWORD_SIGN_UP -> isBlank(viewModel.passwordSignUpError)
+    }
+}
+
+private fun isBlank(stateFlow: StateFlow<String>): Boolean {
+    return stateFlow.value.isBlank()
+}
+
+@Composable
+private fun getButtonText(isSignIn: Boolean): String {
+    return if (isSignIn) "Sign In" else "Sign Up"
+}
+
+@Composable
+private fun getErrorMessage(
+    textFieldType: TextFieldType,
+    viewModel: AuthViewModel
+): String {
+    return when (textFieldType) {
+        TextFieldType.EMAIL_SIGN_IN -> viewModel.emailSignInError.collectAsStateWithLifecycle().value
+        TextFieldType.PASSWORD_SIGN_IN -> viewModel.passwordSignInError.collectAsStateWithLifecycle().value
+        TextFieldType.EMAIL_SIGN_UP -> viewModel.emailSignUpError.collectAsStateWithLifecycle().value
+        TextFieldType.PASSWORD_SIGN_UP -> viewModel.passwordSignUpError.collectAsStateWithLifecycle().value
     }
 }

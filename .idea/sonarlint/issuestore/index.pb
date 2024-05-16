@@ -254,3 +254,9 @@ _feature_auth/src/main/java/com/amadiyawa/feature_auth/presentation/screen/auth/
 Xfeature_auth/src/main/java/com/amadiyawa/feature_auth/presentation/PresentationModule.kt,f\f\ffa8bf69e3281d85e50a0ce611f2cc5e1f270595
 w
 Gfeature_auth/src/main/java/com/amadiyawa/feature_auth/AuthKoinModule.kt,0\9\091d4f645102f7f38cb8f16533c9ca777ec31ca2
+‚
+Rfeature_base/src/main/java/com/amadiyawa/feature_base/common/enum/TextFieldType.kt,4\4\449aee67ef775575ca7576db52b57e3a7192ae1b
+•
+efeature_auth/src/main/java/com/amadiyawa/feature_auth/presentation/screen/auth/AuthTextFieldParams.kt,4\8\485dcfb638b0e23b297e0e991813e3568e28745e
+„
+Tfeature_base/src/main/java/com/amadiyawa/feature_base/presentation/theme/AppColor.kt,4\3\43dd34e13dcd2eb7b9a3e4c8c55b83e3a4853609

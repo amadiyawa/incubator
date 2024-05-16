@@ -1,4 +1,4 @@
-package com.amadiyawa.feature_base.presentation.compose.composable
+package com.amadiyawa.feature_base.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
