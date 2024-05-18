@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="auth_title">Veuillez vérifier votre identité avant le voyage</string>
+    <string name="sign_in_body">Veuillez vérifier votre identité avant le voyage</string>
+    <string name="sign_up_body">Veuillez créer un compte pour continuer</string>
+    <string name="sign_in">Se connecter</string>
+    <string name="sign_up">S\'inscrire</string>
+    <string name="email">Email</string>
+    <string name="password">Mot de passe</string>
 </resources>

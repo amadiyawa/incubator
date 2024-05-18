@@ -224,8 +224,6 @@ Tfeature_incubator/src/main/java/com/amadiyawa/feature_incubator/domain/model/Ba
 Ofeature_base/src/main/java/com/amadiyawa/feature_base/common/util/formatDate.kt,1\b\1b6415084d1120068265c1a12f1c835127d2dced
 P
  app/release/output-metadata.json,0\7\079ee2b81fdfd2faf349bcf552fe1a1bc16be431
-‘
-afeature_base/src/main/java/com/amadiyawa/feature_base/presentation/compose/composable/AppColor.kt,8\1\814492798041edd69f55e4abb8ba1d932f21d272
 ‡
 Wfeature_auth/src/androidTest/java/com/amadiyawa/feature_auth/ExampleInstrumentedTest.kt,d\5\d54a99d9057c51cac998f3ad26eb776720a671dc
 G

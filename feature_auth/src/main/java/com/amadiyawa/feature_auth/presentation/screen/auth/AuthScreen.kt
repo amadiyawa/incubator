@@ -1,9 +1,14 @@
 package com.amadiyawa.feature_auth.presentation.screen.auth
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,16 +16,22 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.amadiyawa.feature_auth.R
 import com.amadiyawa.feature_base.common.enum.TextFieldType
@@ -80,7 +91,12 @@ private fun HandleUiState(
             .fillMaxSize()
             .padding(Dimen.Padding.screenContent)
     ) {
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState()),
+            contentAlignment = Alignment.Center
+        ) {
             Column(
                 modifier = Modifier
                     .padding(Dimen.Padding.screenContent)
@@ -88,60 +104,116 @@ private fun HandleUiState(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(Dimen.Padding.screenContent)
             ) {
-                TextTitleLarge(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    text = stringResource(id = R.string.auth_title)
-                )
-
-                AuthTextField(
-                    params = AuthTextFieldParams(
-                        isSignIn = isSignIn.value,
-                        signInTextField = emailSignIn.value,
-                        signUpTextField = emailSignUp.value,
-                        textFieldTypeSignIn = TextFieldType.EMAIL_SIGN_IN,
-                        textFieldTypeSignUp = TextFieldType.EMAIL_SIGN_UP,
-                        label = "Email",
-                        viewModel = viewModel,
-                        errorMessage = getErrorMessage(
-                            if (isSignIn.value) TextFieldType.EMAIL_SIGN_IN else TextFieldType.EMAIL_SIGN_UP,
-                            viewModel
-                        )
-                    )
-                )
-
-                AuthTextField(
-                    params = AuthTextFieldParams(
-                        isSignIn = isSignIn.value,
-                        signInTextField = passwordSignIn.value,
-                        signUpTextField = passwordSignUp.value,
-                        textFieldTypeSignIn = TextFieldType.PASSWORD_SIGN_IN,
-                        textFieldTypeSignUp = TextFieldType.PASSWORD_SIGN_UP,
-                        label = "Password",
-                        viewModel = viewModel,
-                        visualTransformation = PasswordVisualTransformation(),
-                        errorMessage = getErrorMessage(
-                            if (isSignIn.value) TextFieldType.PASSWORD_SIGN_IN else TextFieldType.PASSWORD_SIGN_UP,
-                            viewModel
-                        )
-                    )
-                )
-
-                Button(
-                    onClick = {
-                        viewModel.signInOrSignUp()
-                        onSignIn()
-                    },
-                    enabled = viewModel.isButtonEnabled(),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(Dimen.Size.extraLarge)
-                ) {
-                    Text(text = getButtonText(isSignIn.value))
-                }
+                HandleAuthRow(isSignIn, viewModel)
+                HandleAuthLine(isSignIn)
+                HandleAuthBody(isSignIn)
+                HandleAuthTextFields(isSignIn, emailSignIn, passwordSignIn, emailSignUp, passwordSignUp, viewModel)
+                HandleAuthButton(isSignIn, viewModel, onSignIn)
             }
         }
     }
+}
+
+@Composable
+private fun HandleAuthRow(isSignIn: State<Boolean>, viewModel: AuthViewModel) {
+    Row(
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            TextTitleLarge(
+                text = stringResource(id = R.string.sign_in),
+                color = if (isSignIn.value) MaterialTheme.colorScheme.primary else Color.LightGray,
+                modifier = Modifier.clickable { viewModel.setIsSignIn(true) },
+                fontWeight = FontWeight.Bold
+            )
+        }
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        Column(horizontalAlignment = Alignment.End) {
+            TextTitleLarge(
+                text = stringResource(id = R.string.sign_up),
+                color = if (!isSignIn.value) MaterialTheme.colorScheme.primary else Color.LightGray,
+                modifier = Modifier.clickable { viewModel.setIsSignIn(false) },
+                fontWeight = FontWeight.Bold
+            )
+        }
+    }
+}
+
+@Composable
+private fun HandleAuthLine(isSignIn: State<Boolean>) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceEvenly
+    ) {
+        SignLine(isActive = isSignIn.value)
+        SignLine(isActive = !isSignIn.value)
+    }
+}
+
+@Composable
+private fun RowScope.SignLine(isActive: Boolean) {
+    Row(
+        modifier = Modifier
+            .height(4.dp)
+            .weight(1f)
+            .background(if (isActive) MaterialTheme.colorScheme.primary else Color.LightGray)
+    ){}
+}
+
+@Composable
+private fun HandleAuthBody(isSignIn: State<Boolean>) {
+    TextTitleLarge(
+        modifier = Modifier
+            .fillMaxWidth(),
+        text = if (isSignIn.value) stringResource(id = R.string.sign_in_body) else stringResource(id = R.string.sign_up_body),
+    )
+}
+
+@Composable
+private fun HandleAuthTextFields(
+    isSignIn: State<Boolean>,
+    emailSignIn: State<String>,
+    passwordSignIn: State<String>,
+    emailSignUp: State<String>,
+    passwordSignUp: State<String>,
+    viewModel: AuthViewModel
+) {
+    AuthTextField(
+        params = AuthTextFieldParams(
+            isSignIn = isSignIn.value,
+            signInTextField = emailSignIn.value,
+            signUpTextField = emailSignUp.value,
+            textFieldTypeSignIn = TextFieldType.EMAIL_SIGN_IN,
+            textFieldTypeSignUp = TextFieldType.EMAIL_SIGN_UP,
+            label = stringResource(id = R.string.email),
+            viewModel = viewModel,
+            errorMessage = getErrorMessage(
+                if (isSignIn.value) TextFieldType.EMAIL_SIGN_IN else TextFieldType.EMAIL_SIGN_UP,
+                viewModel
+            )
+        )
+    )
+
+    AuthTextField(
+        params = AuthTextFieldParams(
+            isSignIn = isSignIn.value,
+            signInTextField = passwordSignIn.value,
+            signUpTextField = passwordSignUp.value,
+            textFieldTypeSignIn = TextFieldType.PASSWORD_SIGN_IN,
+            textFieldTypeSignUp = TextFieldType.PASSWORD_SIGN_UP,
+            label = stringResource(id = R.string.password),
+            viewModel = viewModel,
+            visualTransformation = PasswordVisualTransformation(),
+            errorMessage = getErrorMessage(
+                if (isSignIn.value) TextFieldType.PASSWORD_SIGN_IN else TextFieldType.PASSWORD_SIGN_UP,
+                viewModel
+            )
+        )
+    )
 }
 
 @Composable
@@ -224,8 +296,28 @@ private fun isBlank(stateFlow: StateFlow<String>): Boolean {
 }
 
 @Composable
+private fun HandleAuthButton(
+    isSignIn: State<Boolean>,
+    viewModel: AuthViewModel,
+    onSignIn: () -> Unit
+) {
+    Button(
+        onClick = {
+            viewModel.signInOrSignUp()
+            onSignIn()
+        },
+        enabled = viewModel.isButtonEnabled(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(Dimen.Size.extraLarge)
+    ) {
+        Text(text = getButtonText(isSignIn.value))
+    }
+}
+
+@Composable
 private fun getButtonText(isSignIn: Boolean): String {
-    return if (isSignIn) "Sign In" else "Sign Up"
+    return if (isSignIn) stringResource(id = R.string.sign_in) else stringResource(id = R.string.sign_up)
 }
 
 @Composable

@@ -37,6 +37,10 @@ internal class AuthViewModel : BaseViewModel<UiState, Action>(UiState.IDLE) {
     private var _isSignIn = MutableStateFlow(true)
     val isSignIn = _isSignIn.asStateFlow()
 
+    fun setIsSignIn(isSignIn: Boolean) {
+        _isSignIn.value = isSignIn
+    }
+
     fun onEmailSignInChange(email: String) {
         _emailSignIn.value = email
         if (!isValidEmail(email)) {
